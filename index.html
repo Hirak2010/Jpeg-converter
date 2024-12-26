@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>JPEG to PNG Converter - Online Tool</title>
+		<meta name="description" content="Convert JPEG images to PNG format instantly with this free online tool. No downloads required!">
+		<meta name="keywords" content="JPEG to PNG, image converter, free online converter, convert jpeg to png, image format tools">
+		<meta name="author" content="Your Name">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+        .container {
+            margin: 20px;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        input[type="file"] {
+            margin: 20px 0;
+            padding: 10px;
+            font-size: 16px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #007BFF;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        img {
+            max-width: 100%;
+            margin-top: 20px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>JPEG to PNG Converter</h1>
+        <p>Select a JPEG file to convert it to PNG format.</p>
+        <input type="file" id="jpegInput" accept="image/jpeg">
+        <br>
+        <button onclick="convertToPNG()">Convert to PNG</button>
+        <div id="outputContainer"></div>
+    </div>
+
+    <script>
+        function convertToPNG() {
+            const input = document.getElementById('jpegInput');
+            const outputContainer = document.getElementById('outputContainer');
+
+            if (!input.files || input.files.length === 0) {
+                alert('Please select a JPEG file to convert.');
+                return;
+            }
+
+            const file = input.files[0];
+            const reader = new FileReader();
+
+            reader.onload = function(event) {
+                const img = new Image();
+                img.onload = function() {
+                    const canvas = document.createElement('canvas');
+                    canvas.width = img.width;
+                    canvas.height = img.height;
+
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0);
+
+                    const pngDataUrl = canvas.toDataURL('image/png');
+
+                    outputContainer.innerHTML = '<p>Converted PNG Image:</p>';
+                    const link = document.createElement('a');
+                    link.href = pngDataUrl;
+                    link.download = 'converted-image.png';
+                    link.textContent = 'Download PNG Image';
+                    outputContainer.appendChild(link);
+
+                    const outputImg = document.createElement('img');
+                    outputImg.src = pngDataUrl;
+                    outputContainer.appendChild(outputImg);
+                };
+
+                img.src = event.target.result;
+            };
+
+            reader.readAsDataURL(file);
+        }
+    </script>
+</body>
+</html>
+Thank you for choosing this website
+
+
+
+
+
+
+
+
